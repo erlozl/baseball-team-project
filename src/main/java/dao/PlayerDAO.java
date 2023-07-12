@@ -33,13 +33,13 @@ public class PlayerDAO {
         return this;
     }
     // 선수 수정
-    public void update(Integer id) {
+    public void update(Integer playerId) {
         //      sql문 작성
         String sql = "UPDATE player SET position = NULL WHERE id = ?;";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1,id);
+            ps.setInt(1,playerId);
             ps.executeUpdate();
         }catch (Exception e){
             e.printStackTrace();
@@ -88,7 +88,6 @@ public class PlayerDAO {
     }
 
       // 선수 전체 찾기
-      // (안에 안 적어놔서 오류납니다, 안에 작성할 때 주석 푸시면 됩니다)
     public List<Player> findAll(Integer teamId) {
         List<Player> playerDaoAll = new ArrayList<>();
 
@@ -96,7 +95,7 @@ public class PlayerDAO {
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-//            ps.setInt(1, teamId);
+            ps.setInt(1, teamId);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Player player = new Player(

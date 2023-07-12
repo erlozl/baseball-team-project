@@ -30,6 +30,7 @@ public class OutPlayerDAO {
             e.printStackTrace();
         }
     }
+
     // 퇴출 선수 수정
     public void update() {
         //      sql문 작성
@@ -57,20 +58,25 @@ public class OutPlayerDAO {
     }
 
     // 퇴출 선수 하나 찾기
-    public boolean fineOne(Integer id) {
-        String sql = "SELECT COUNT(*) FROM out_player WHERE id = ?;";
+    public Outplayer fineOne(Integer playerId) {
+        Outplayer outplayer = null;
+        String sql = "SELECT * FROM out_player WHERE player_id = ?;";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, playerId);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                int count = rs.getInt(id);
-                return count > 0;
+                outplayer = new Outplayer(
+                        rs.getInt("id"),
+                        rs.getInt("player_id"),
+                        rs.getString("reason"),
+                        rs.getTimestamp("created_at")
+                );
             }
         }catch (Exception e){
             e.printStackTrace();
         }
-        return false;
+        return outplayer;
     }
 
     // 퇴출 선수 전체 찾기

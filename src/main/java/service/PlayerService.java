@@ -73,7 +73,11 @@ public class PlayerService {
         return null;
     }
 
-//  빌더 패턴
+    public List<Player> 선수목록(int teamId) {
+        return playerDAO.findAll(teamId);
+    }
+
+    //  빌더 패턴
     public static class Builder {
         private BufferedReader reader;
         private PlayerDAO playerDao;
