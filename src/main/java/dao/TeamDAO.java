@@ -1,29 +1,43 @@
 package dao;
 
+import model.Team;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 //팀 테이블
 public class TeamDAO {
-    private Connection connection;
+    private static Connection connection;
 
     public TeamDAO(Connection connection) {
         this.connection = connection;
     }
 
     // 팀 삽입
-    public void insert() {
+    public static void insert(Team team) {
         // sql문 작성
-        String sql = "";
+        String sql;
+        if (team.getStadiumId() != null) {
+            sql = "INSERT INTO team (stadiumId, Name, created_at) VALUES (?, ?, NOW())";
+        } else {
+            sql = "INSERT INTO team (teamName, created_at) VALUES (?, NOW())";
+        }
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
+
+            if (team.getStadiumId() != null) {
+                ps.setInt(1, team.getStadiumId());
+                ps.setString(2, team.getName());
+            } else {
+                ps.setString(1, team.getName());
+            }
+
             ps.executeUpdate();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
     // 팀 수정
     public void update() {
@@ -52,7 +66,7 @@ public class TeamDAO {
     }
 
     // 팀 하나 찾기
-    public void selectOne() {
+    public void findOne() {
         String sql = " ";
 
         try {

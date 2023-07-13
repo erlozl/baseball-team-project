@@ -51,7 +51,7 @@ public class OutPlayerDAO {
     }
 
     // 퇴출 선수 하나 찾기
-    public void selectOne() {
+    public void findOne() {
         String sql = " ";
 
         try {

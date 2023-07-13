@@ -12,6 +12,8 @@ import java.sql.Timestamp;
 public class Team {
     private Integer teamId;
     private Integer stadiumId;
-    private String teamName;
+    private String Name;
     private Timestamp teamCreatedAt;
+
+
 }
