@@ -46,6 +46,12 @@ INSERT INTO team (stadium_id, name, created_at) VALUES (1, '롯데', NOW());
 INSERT INTO team (stadium_id, name, created_at) VALUES (2, '삼성', NOW());
 INSERT INTO team (stadium_id, name, created_at) VALUES (3, '한화', NOW());
 
+
+-- 팀목록 조인쿼리
+SELECT t.id, t.name AS team_name, s.id AS stadium_id, s.name AS stadium_name
+FROM team t
+LEFT JOIN stadium s ON t.stadium_id = s.id;
+
 select * from team;
 -- player 데이터더미넣기
 -- 롯데
